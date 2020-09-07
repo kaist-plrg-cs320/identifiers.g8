@@ -2,12 +2,6 @@ package cs320
 
 import scala.util.parsing.combinator._
 
-// e ::= n
-//     | (e + e)
-//     | (e - e)
-//     | x
-//     | {val x = e; e}
-
 trait Expr
 
 case class Num(value: Int) extends Expr
@@ -27,11 +21,12 @@ object Expr extends RegexParsers {
   "[a-zA-Z_][a-zA-Z0-9_]*".r.withFilter(_ != "val")
 
   lazy val expr: Parser[Expr] =
-    int ^^ Num | str ^^ Id |
+    int ^^ Num |
     wrapR((expr <~ "+") ~ expr) ^^ { case l ~ r => Add(l, r) } |
     wrapR((expr <~ "-") ~ expr) ^^ { case l ~ r => Sub(l, r) } |
     wrapC(("val" ~> str <~ "=") ~ (expr <~ ";") ~ expr) ^^
-      { case x ~ i ~ b => Val(x, i, b) }
+      { case x ~ i ~ b => Val(x, i, b) } |
+    str ^^ Id
 
   def apply(str: String): Expr = parseAll(expr, str).get
 }

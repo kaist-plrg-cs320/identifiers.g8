@@ -32,17 +32,17 @@ object Main {
       for (expr <- opt) {
         lift {
           val freeIds = Implementation.freeIds(expr)
-          println(s"  ${C}Free:$RESET ${freeIds.mkString(", ")}")
+          println(s"  ${C}Free:$RESET ${setToString(freeIds)}")
         }
 
         lift {
           val bindingIds = Implementation.bindingIds(expr)
-          println(s"  ${C}Binding:$RESET ${bindingIds.mkString(", ")}")
+          println(s"  ${C}Binding:$RESET ${setToString(bindingIds)}")
         }
 
         lift {
           val boundIds = Implementation.boundIds(expr)
-          println(s"  ${C}Bound:$RESET ${boundIds.mkString(", ")}")
+          println(s"  ${C}Bound:$RESET ${setToString(boundIds)}")
         }
       }
     }
@@ -57,4 +57,7 @@ object Main {
       e.printStackTrace()
       None
   }
+
+  def setToString(set: Set[String]): String =
+    set.toList.sorted.mkString(", ")
 }

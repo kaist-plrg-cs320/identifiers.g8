@@ -21,6 +21,7 @@ object Main {
     ) #:: strs
 
     println(s"Welcome to the $M$name$RESET REPL.")
+    println(s"Type in :q, :quit, or the EOF character to terminate the REPL.")
 
     for (str <- strs.takeWhile(s => !eof(s)) if str.nonEmpty) {
       val opt = lift {

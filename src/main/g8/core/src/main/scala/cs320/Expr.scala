@@ -2,7 +2,7 @@ package cs320
 
 import scala.util.parsing.combinator._
 
-trait Expr
+sealed trait Expr
 
 case class Num(value: Int) extends Expr
 case class Add(left: Expr, right: Expr) extends Expr

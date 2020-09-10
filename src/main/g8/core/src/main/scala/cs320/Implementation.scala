@@ -1,6 +1,6 @@
 package cs320
 
-object Implementation extends Template with Assignment {
+object Implementation extends Template {
 
   def freeIds(expr: Expr): Set[String] = ???
 

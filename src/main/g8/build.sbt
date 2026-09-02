@@ -1,7 +1,5 @@
-name := "identifiers"
-
-ThisBuild / scalaVersion := "2.13.18"
-ThisBuild / scalacOptions ++= Seq("-feature", "-deprecation", "-Xlint:unused")
+scalaVersion := "2.13.18"
+scalacOptions ++= Seq("-feature", "-deprecation", "-Xlint:unused")
 
 lazy val macros = (project in file("macros")).settings(
   libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
@@ -23,5 +21,8 @@ lazy val core = (project in file("core")).settings(
   }
 ).dependsOn(macros)
 
-run := (core / Compile / run).evaluated
-test := (core / Test / test).value
+lazy val root = rootProject.settings(
+  name := "identifiers",
+  run := (core / Compile / run).evaluated,
+  test := (core / Test / test).evaluated
+)
